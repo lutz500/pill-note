@@ -10,10 +10,28 @@ PillNote was a fun project that allowed me to dive back into mobile development 
 
 Here are some screenshots of the PillNote app in action:
 
-![Home Screen](![image](https://github.com/user-attachments/assets/ca958689-1857-4ec5-ad90-ef859e600dec))  
-*Home Screen: View your daily pill reminders and log them.*  
-*Screenshot taken on: January 6, 2025*
+<div style="display: flex; gap: 20px;">
 
-![Add Pill Screen](![image](https://github.com/user-attachments/assets/31d3013e-4b44-46d9-a876-a99eab1a8c84))  
+  <img src="assets/screenshots/main_page.png" width="20%" alt="Home Screen">  
+  <img src="assets/screenshots/add_pill_page.png" width="20%" alt="Add Pill Screen">
+
+</div>
+
+*Home Screen: View your daily pill reminders and log them.*  
 *Add Pill Screen: Easily add new pills with dosage and reminder time.*  
-*Screenshot taken on: January 6, 2025*
+*Screenshots taken on: January 6, 2025*
+
+## Technologies Used
+
+- **Flutter**: The framework used to build the app, enabling cross-platform mobile development.
+- **Dart**: The programming language used for developing with Flutter.
+- **SQLite**: For local storage and managing pill data (if used in the app).
+
+## Installation
+
+Clone this repository and use Flutter to run the app:
+
+```bash
+git clone https://github.com/lutz500/pill-note.git
+cd pill-note
+flutter run
