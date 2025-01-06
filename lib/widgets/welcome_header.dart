@@ -2,11 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:medmate/constants/colors.dart';
 
 class WelcomeCustomHeaderWidget extends StatelessWidget {
-  // Add a required `name` parameter
   final String name;
-  final VoidCallback onAddPill; // Callback for adding a card
+  final VoidCallback onAddPill;
 
-  // Update the constructor to require the `name` parameter
   const WelcomeCustomHeaderWidget({
     Key? key,
     required this.name,
@@ -52,7 +50,6 @@ class WelcomeCustomHeaderWidget extends StatelessWidget {
                 ],
               ),
             ),
-            // Right side: Image container
             GestureDetector(
               onTap: onAddPill,
               child: Container(

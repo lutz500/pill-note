@@ -16,11 +16,10 @@ class DefaultButton extends StatelessWidget {
     return ElevatedButton(
       onPressed: onPressed,
       style: ElevatedButton.styleFrom(
-        shadowColor:
-            const Color.fromARGB(255, 255, 255, 255), // Button shadow color
+        shadowColor: const Color.fromARGB(255, 255, 255, 255),
         elevation: 5, // Shadow effect
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(30), // Rounded corners
+          borderRadius: BorderRadius.circular(30),
         ),
       ),
       child: Padding(
@@ -30,7 +29,7 @@ class DefaultButton extends StatelessWidget {
           style: const TextStyle(
             fontSize: 20,
             fontWeight: FontWeight.bold,
-            color: primary_text_color, // Text color
+            color: primary_text_color,
           ),
         ),
       ),

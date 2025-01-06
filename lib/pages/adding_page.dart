@@ -8,7 +8,6 @@ import 'package:medmate/widgets/custom_text_field.dart';
 import 'package:medmate/widgets/default_button.dart';
 import 'package:medmate/widgets/section_title.dart';
 import 'package:medmate/widgets/selectType.dart';
-import 'package:medmate/widgets/welcome_header.dart';
 
 class AddPillPage extends StatefulWidget {
   final String pillType; // 'pill' or 'supplement'
@@ -34,7 +33,6 @@ class _AddPillPageState extends State<AddPillPage> {
         duration.toString().isNotEmpty &&
         _selectedType.isNotEmpty &&
         _selectedInterval.isNotEmpty) {
-      // Add pill or supplement to the database
       _databaseService.addPill(
         name,
         _selectedInterval,
@@ -42,30 +40,22 @@ class _AddPillPageState extends State<AddPillPage> {
         _selectedType,
       );
 
-      // Go back to the previous screen
       Navigator.pop(context);
     } else {
-      // Show an error if fields are empty
       showAlertDialog(context, 'Please fill in all fields.');
     }
   }
 
-  // This shows a CupertinoModalPopup with a reasonable fixed height which hosts
-  // a CupertinoTimerPicker.
   void _showDialog(Widget child) {
     showCupertinoModalPopup<void>(
       context: context,
       builder: (BuildContext context) => Container(
         height: 216,
         padding: const EdgeInsets.only(top: 6.0),
-        // The bottom margin is provided to align the popup above the system
-        // navigation bar.
         margin: EdgeInsets.only(
           bottom: MediaQuery.of(context).viewInsets.bottom,
         ),
-        // Provide a background color for the popup.
         color: CupertinoColors.systemBackground.resolveFrom(context),
-        // Use a SafeArea widget to avoid system overlaps.
         child: SafeArea(
           top: false,
           child: child,
@@ -101,12 +91,10 @@ class _AddPillPageState extends State<AddPillPage> {
                     SelectTypeWidget(
                       label: 'Pill',
                       imagePath: 'assets/images/drug.png',
-                      isSelected:
-                          _selectedType == 'pill', // Check if pill is selected
+                      isSelected: _selectedType == 'pill',
                       onTap: () {
                         setState(() {
-                          _selectedType =
-                              'pill'; // Update selected type to 'pill'
+                          _selectedType = 'pill';
                         });
                       },
                     ),
@@ -114,12 +102,10 @@ class _AddPillPageState extends State<AddPillPage> {
                     SelectTypeWidget(
                       label: 'Supplement',
                       imagePath: 'assets/images/supplements.png',
-                      isSelected: _selectedType ==
-                          'supplement', // Check if supplement is selected
+                      isSelected: _selectedType == 'supplement',
                       onTap: () {
                         setState(() {
-                          _selectedType =
-                              'supplement'; // Update selected type to 'supplement'
+                          _selectedType = 'supplement';
                         });
                       },
                     ),
@@ -132,12 +118,10 @@ class _AddPillPageState extends State<AddPillPage> {
                     SelectTypeWidget(
                       label: 'Daily',
                       imagePath: 'assets/images/one_day.png',
-                      isSelected: _selectedInterval ==
-                          'daily', // Check if pill is selected
+                      isSelected: _selectedInterval == 'daily',
                       onTap: () {
                         setState(() {
-                          _selectedInterval =
-                              'daily'; // Update selected type to 'pill'
+                          _selectedInterval = 'daily';
                         });
                       },
                     ),
@@ -145,12 +129,10 @@ class _AddPillPageState extends State<AddPillPage> {
                     SelectTypeWidget(
                       label: 'Weekly',
                       imagePath: 'assets/images/seven_days.png',
-                      isSelected: _selectedInterval ==
-                          'weekly', // Check if supplement is selected
+                      isSelected: _selectedInterval == 'weekly',
                       onTap: () {
                         setState(() {
-                          _selectedInterval =
-                              'weekly'; // Update selected type to 'supplement'
+                          _selectedInterval = 'weekly';
                         });
                       },
                     ),
@@ -158,13 +140,10 @@ class _AddPillPageState extends State<AddPillPage> {
                 ),
                 SectionTitleWidget(title: "Time:"),
                 CupertinoButton(
-                  // Display a CupertinoTimerPicker with hour/minute mode.
                   onPressed: () => _showDialog(
                     CupertinoTimerPicker(
                       mode: CupertinoTimerPickerMode.hm,
                       initialTimerDuration: duration,
-                      // This is called when the user changes the timer's
-                      // duration.
                       onTimerDurationChanged: (Duration newDuration) {
                         setState(() => duration = newDuration);
                       },

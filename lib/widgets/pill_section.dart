@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:medmate/storage/models/pill_data.dart';
 import 'package:medmate/widgets/pill_card.dart'; // Assuming PillCardWidget is imported
-import 'package:medmate/storage/models/pill.dart';
 
 class PillSectionWidget extends StatelessWidget {
   final List<Map<String, dynamic>> pillData;

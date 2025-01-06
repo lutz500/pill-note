@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:easy_date_timeline/easy_date_timeline.dart';
-import 'package:medmate/constants/colors.dart'; // Keep this import
+import 'package:medmate/constants/colors.dart';
 
 class DatePickerWidget extends StatelessWidget {
   final DateTime focusedDate;
@@ -25,34 +25,27 @@ class DatePickerWidget extends StatelessWidget {
           data: EasyTheme.of(context).copyWith(
             dayBackgroundColor: WidgetStateProperty.resolveWith((states) {
               if (states.contains(WidgetState.selected)) {
-                // return the background color of the selected day
                 return selection_color;
               } else if (states.contains(WidgetState.disabled)) {
-                // return the background color of the disabled day
                 return Colors.grey.shade100;
               }
-              // return the background color of the normal day
               return Colors.white;
             }),
             currentDayBackgroundColor:
                 WidgetStateProperty.resolveWith((states) {
               if (states.contains(WidgetState.selected)) {
-                // return the background color of the selected current day
                 return selection_color;
               } else if (states.contains(WidgetState.disabled)) {
-                // return the background color of the disabled day
                 return Colors.grey.shade100;
               }
-              // return the background color of the normal current day
               return Colors.white;
             }),
           ),
           child: EasyDateTimeLinePicker(
             monthYearPickerOptions: MonthYearPickerOptions(
-              initialCalendarMode: EasyDatePickerMode.month, // default
+              initialCalendarMode: EasyDatePickerMode.month,
               cancelText: 'Cancel',
               confirmText: 'Confirm',
-              // ... other properties
             ),
             focusedDate: focusedDate,
             daySeparatorPadding: 10,

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '../constants/colors.dart';
 
 class CustomTextFieldWidget extends StatelessWidget {
@@ -20,7 +19,7 @@ class CustomTextFieldWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextField(
       controller: controller,
-      obscureText: isPasswordField, // Hide text if it's a password field
+      obscureText: isPasswordField,
       decoration: InputDecoration(
         labelText: labelText,
         labelStyle: TextStyle(

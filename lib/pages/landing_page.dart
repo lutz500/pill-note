@@ -43,7 +43,7 @@ class _LandingPage extends State<LandingPage> {
     await Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => AddPillPage(pillType: 'pill'), // Pass 'pill'
+        builder: (context) => AddPillPage(pillType: 'pill'),
       ),
     );
     _getPillLogsByDate(_selectedDate);
@@ -95,10 +95,7 @@ class _LandingPage extends State<LandingPage> {
               onPillDelete: _deletePill,
               onTap: _togglePillAction,
             ),
-
-// Custom Header for Supplements
             CustomHeaderWidget(title: "Supplements"),
-
             PillSectionWidget(
               pillData: pillData
                   .where((pill) =>

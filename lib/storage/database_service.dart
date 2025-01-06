@@ -110,22 +110,18 @@ class DatabaseService {
 
   Future<List<Map<String, dynamic>>> getPillLogsByDate(String date) async {
     final db = await database;
-    print(date);
 
-    // Perform the LEFT JOIN to get all pills with the corresponding log action (if any)
     final logs = await db.rawQuery(
       '''
-  SELECT p.id, p.name, p.frequency, p.time, p.pill_type, 
-         COALESCE(pl.action, null) AS action, 
-         COALESCE(pl.date, ?) AS date, 
-         pl.logtime
-  FROM $_pillTableName p
-  LEFT JOIN $_pillLogTableName pl ON p.id = pl.pill_id AND pl.date = ?
-  ''',
+      SELECT p.id, p.name, p.frequency, p.time, p.pill_type, 
+            COALESCE(pl.action, null) AS action, 
+            COALESCE(pl.date, ?) AS date, 
+            pl.logtime
+      FROM $_pillTableName p
+      LEFT JOIN $_pillLogTableName pl ON p.id = pl.pill_id AND pl.date = ?
+      ''',
       [date, date],
     );
-
-    print(logs); // To see the result in the console
 
     return logs;
   }

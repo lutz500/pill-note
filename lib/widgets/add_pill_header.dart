@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:medmate/constants/colors.dart';
 
 class AddPillHeaderWidget extends StatelessWidget {
-  // Updated constructor to accept 'name'
   const AddPillHeaderWidget({
     Key? key,
   }) : super(key: key);
@@ -15,16 +14,14 @@ class AddPillHeaderWidget extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 25),
         child: Row(
-          mainAxisAlignment:
-              MainAxisAlignment.start, // Align left for the back button
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
             IconButton(
               icon: Icon(
                 Icons.arrow_back,
-                color: primary_color, // Set arrow color to primary_color
+                color: primary_color,
               ),
               onPressed: () {
-                // Go back to the previous screen
                 Navigator.pop(context);
               },
             ),
@@ -33,7 +30,7 @@ class AddPillHeaderWidget extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "Add Pill", // Displaying the title
+                    "Add Pill",
                     style: const TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.normal,
@@ -45,7 +42,6 @@ class AddPillHeaderWidget extends StatelessWidget {
             ),
             GestureDetector(
               onTap: () {
-                // Go back to the previous screen
                 Navigator.pop(context);
               },
               child: Container(

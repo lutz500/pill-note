@@ -1,7 +1,5 @@
-import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:medmate/constants/colors.dart';
-import 'package:medmate/helper.dart';
 
 class PillCardWidget extends StatelessWidget {
   final int id;
@@ -9,7 +7,7 @@ class PillCardWidget extends StatelessWidget {
   final String interval;
   final String time;
   final String pillType;
-  final String? pillState; // Ensure that pillState is properly passed
+  final String? pillState;
   final String? log_time;
   final Function(int) onPillDelete;
   final Function(int) onTap;
@@ -31,10 +29,10 @@ class PillCardWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        onTap(id); // Call onTap callback with the pill ID
+        onTap(id);
       },
       onLongPress: () {
-        onPillDelete(id); // Call onPillDelete callback with the pill ID
+        onPillDelete(id);
       },
       child: Card(
         elevation: 10,
@@ -45,7 +43,6 @@ class PillCardWidget extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              // Pill icon section (circle)
               Container(
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
@@ -56,8 +53,8 @@ class PillCardWidget extends StatelessWidget {
                   padding: const EdgeInsets.all(10.0),
                   child: Image.asset(
                     pillType == "pill"
-                        ? "assets/images/drug.png" // Icon for pill
-                        : "assets/images/supplements.png", // Icon for supplement
+                        ? "assets/images/drug.png"
+                        : "assets/images/supplements.png",
                     height: 30,
                   ),
                 ),
@@ -67,7 +64,6 @@ class PillCardWidget extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    // Pill name
                     Text(
                       text,
                       style: const TextStyle(
@@ -77,7 +73,6 @@ class PillCardWidget extends StatelessWidget {
                       overflow: TextOverflow.ellipsis,
                       maxLines: 1,
                     ),
-                    // Pill interval and time
                     Text(
                       "$interval - $time",
                       style: const TextStyle(
@@ -91,7 +86,6 @@ class PillCardWidget extends StatelessWidget {
                 ),
               ),
               SizedBox(width: 15),
-              // Display the log time if available
               if (log_time != null && pillState == "taken")
                 Container(
                   decoration: BoxDecoration(
