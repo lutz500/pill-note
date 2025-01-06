@@ -1,4 +1,4 @@
-name: iOS-ipa-build
+name: iOS-ipa-build-and-Android-apk-build
 
 on:
   workflow_dispatch:
@@ -14,9 +14,9 @@ jobs:
         with:
           channel: 'stable'
           architecture: x64
+          
       - run: flutter pub get
-      
-
+          
       - run: pod repo update
         working-directory: ios
 
@@ -32,11 +32,36 @@ jobs:
         run: zip -qq -r -9 FlutterIpaExport.ipa Payload
         working-directory: build/ios/iphoneos
 
-      - name: Upload binaries to release
+      - name: Upload iOS binaries to release
         uses: svenstaro/upload-release-action@v2
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           file: build/ios/iphoneos/FlutterIpaExport.ipa
           tag: v1.0
           overwrite: true
-          body: "This is first release"
+          body: "This is first iOS release"
+
+  build-android:
+    name: 🎉 Android APK Build
+    runs-on: ubuntu-latest
+    needs: build-ios  # Ensures iOS build completes first (optional)
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+          architecture: x64
+          
+      - run: flutter pub get
+      
+      - run: flutter build apk --release
+
+      - name: Upload Android APK to release
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: build/app/outputs/flutter-apk/app-release.apk
+          tag: v1.0
+          overwrite: true
+          body: "This is first Android APK release"
