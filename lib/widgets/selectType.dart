@@ -26,12 +26,12 @@ class SelectTypeWidget extends StatelessWidget {
             decoration: BoxDecoration(
               shape: BoxShape.circle,
               color: isSelected
-                  ? Colors.blue
+                  ? selection_color
                   : seconday_color, // Highlight if selected
               boxShadow: [circle_box_shadow],
               border: Border.all(
                 color: isSelected
-                    ? Colors.blueAccent
+                    ? selection_color
                     : Colors.transparent, // Border for selected
                 width: 3,
               ),

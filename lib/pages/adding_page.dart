@@ -1,7 +1,14 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:medmate/constants/colors.dart';
+import 'package:medmate/helper.dart';
 import 'package:medmate/storage/database_service.dart';
+import 'package:medmate/widgets/add_pill_header.dart';
+import 'package:medmate/widgets/custom_text_field.dart';
+import 'package:medmate/widgets/default_button.dart';
+import 'package:medmate/widgets/section_title.dart';
 import 'package:medmate/widgets/selectType.dart';
+import 'package:medmate/widgets/welcome_header.dart';
 
 class AddPillPage extends StatefulWidget {
   final String pillType; // 'pill' or 'supplement'
@@ -15,24 +22,23 @@ class AddPillPage extends StatefulWidget {
 class _AddPillPageState extends State<AddPillPage> {
   final DatabaseService _databaseService = DatabaseService.instance;
   final TextEditingController _nameController = TextEditingController();
-  final TextEditingController _timeController = TextEditingController();
 
   String _selectedType = '';
-  String _selectedInterval = ''; // Track the selected type (pill or supplement)
+  String _selectedInterval = '';
+  Duration duration = const Duration(hours: 7, minutes: 00);
 
   void _savePill() async {
     final name = _nameController.text;
-    final time = _timeController.text;
 
     if (name.isNotEmpty &&
-        time.isNotEmpty &&
+        duration.toString().isNotEmpty &&
         _selectedType.isNotEmpty &&
         _selectedInterval.isNotEmpty) {
       // Add pill or supplement to the database
       _databaseService.addPill(
         name,
         _selectedInterval,
-        time,
+        formatDuration(duration),
         _selectedType,
       );
 
@@ -40,34 +46,55 @@ class _AddPillPageState extends State<AddPillPage> {
       Navigator.pop(context);
     } else {
       // Show an error if fields are empty
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Please fill in all fields.')),
-      );
+      showAlertDialog(context, 'Please fill in all fields.');
     }
+  }
+
+  // This shows a CupertinoModalPopup with a reasonable fixed height which hosts
+  // a CupertinoTimerPicker.
+  void _showDialog(Widget child) {
+    showCupertinoModalPopup<void>(
+      context: context,
+      builder: (BuildContext context) => Container(
+        height: 216,
+        padding: const EdgeInsets.only(top: 6.0),
+        // The bottom margin is provided to align the popup above the system
+        // navigation bar.
+        margin: EdgeInsets.only(
+          bottom: MediaQuery.of(context).viewInsets.bottom,
+        ),
+        // Provide a background color for the popup.
+        color: CupertinoColors.systemBackground.resolveFrom(context),
+        // Use a SafeArea widget to avoid system overlaps.
+        child: SafeArea(
+          top: false,
+          child: child,
+        ),
+      ),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Add ${widget.pillType.capitalize()}'),
-      ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
+          AddPillHeaderWidget(),
           Padding(
-            padding: const EdgeInsets.all(16.0),
+            padding: const EdgeInsets.all(0.0),
             child: Column(
               children: [
+                SectionTitleWidget(title: "Name:"),
                 Padding(
-                  padding: const EdgeInsets.all(15.0),
-                  child: Text("Type:",
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        color: primary_text_color,
-                      )),
+                  padding: const EdgeInsets.symmetric(horizontal: 40),
+                  child: CustomTextFieldWidget(
+                    controller: _nameController,
+                    labelText: 'Name',
+                    hintText: 'Enter your name',
+                  ),
                 ),
+                SectionTitleWidget(title: "Type:"),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -98,15 +125,7 @@ class _AddPillPageState extends State<AddPillPage> {
                     ),
                   ],
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(15.0),
-                  child: Text("Interval:",
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        color: primary_text_color,
-                      )),
-                ),
+                SectionTitleWidget(title: "Interval:"),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -137,19 +156,29 @@ class _AddPillPageState extends State<AddPillPage> {
                     ),
                   ],
                 ),
-                TextField(
-                  controller: _nameController,
-                  decoration: InputDecoration(labelText: 'Name'),
+                SectionTitleWidget(title: "Time:"),
+                CupertinoButton(
+                  // Display a CupertinoTimerPicker with hour/minute mode.
+                  onPressed: () => _showDialog(
+                    CupertinoTimerPicker(
+                      mode: CupertinoTimerPickerMode.hm,
+                      initialTimerDuration: duration,
+                      // This is called when the user changes the timer's
+                      // duration.
+                      onTimerDurationChanged: (Duration newDuration) {
+                        setState(() => duration = newDuration);
+                      },
+                    ),
+                  ),
+                  child: Text(
+                    formatDuration(duration),
+                    style: const TextStyle(
+                        fontSize: 22.0,
+                        color: primary_text_color,
+                        fontWeight: FontWeight.w400),
+                  ),
                 ),
-                TextField(
-                  controller: _timeController,
-                  decoration: InputDecoration(labelText: 'Time'),
-                ),
-                SizedBox(height: 20),
-                ElevatedButton(
-                  onPressed: _savePill,
-                  child: Text('Save'),
-                ),
+                DefaultButton(onPressed: _savePill, buttonText: "Save")
               ],
             ),
           ),

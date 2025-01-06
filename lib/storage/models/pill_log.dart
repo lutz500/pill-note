@@ -1,26 +1,35 @@
 class PillLog {
   final int id;
   final int pillId;
-  final DateTime date;
-  final bool taken;
+  final String logtime;
+  final String action;
 
   PillLog(
       {required this.id,
       required this.pillId,
-      required this.date,
-      required this.taken});
+      required this.logtime,
+      required this.action});
 
   Map<String, Object?> toMap() {
     return {
       'id': id,
       'pillId': pillId,
-      'date': date.toIso8601String(),
-      'taken': taken ? 1 : 0,
+      'logtime': logtime,
+      'taken': action,
     };
+  }
+
+  factory PillLog.fromMap(Map<String, dynamic> map) {
+    return PillLog(
+      id: map['id'],
+      pillId: map['pillId'],
+      logtime: map['logtime'],
+      action: map['action'],
+    );
   }
 
   @override
   String toString() {
-    return 'PillLog{id: $id, pillId: $pillId, date: $date, taken: $taken}';
+    return 'PillLog{id: $id, pillId: $pillId, date: $logtime, action: $action}';
   }
 }

@@ -1,16 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:medmate/constants/colors.dart';
 
-class WelcomeCustomHeaderWidget extends StatelessWidget {
-  // Add a required `name` parameter
-  final String name;
-  final VoidCallback onAddPill; // Callback for adding a card
-
-  // Update the constructor to require the `name` parameter
-  const WelcomeCustomHeaderWidget({
+class AddPillHeaderWidget extends StatelessWidget {
+  // Updated constructor to accept 'name'
+  const AddPillHeaderWidget({
     Key? key,
-    required this.name,
-    required this.onAddPill,
   }) : super(key: key);
 
   @override
@@ -19,42 +13,41 @@ class WelcomeCustomHeaderWidget extends StatelessWidget {
       width: double.infinity,
       color: primary_text_color,
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 30.0),
+        padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 25),
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisAlignment:
+              MainAxisAlignment.start, // Align left for the back button
           children: [
+            IconButton(
+              icon: Icon(
+                Icons.arrow_back,
+                color: primary_color, // Set arrow color to primary_color
+              ),
+              onPressed: () {
+                // Go back to the previous screen
+                Navigator.pop(context);
+              },
+            ),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.only(top: 20),
-                    child: Text(
-                      "Guten Morgen",
-                      style: const TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.normal,
-                        color: primary_color,
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 8, bottom: 20),
-                    child: Text(
-                      name,
-                      style: const TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        color: primary_color,
-                      ),
+                  Text(
+                    "Add Pill", // Displaying the title
+                    style: const TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.normal,
+                      color: primary_color,
                     ),
                   ),
                 ],
               ),
             ),
-            // Right side: Image container
             GestureDetector(
-              onTap: onAddPill,
+              onTap: () {
+                // Go back to the previous screen
+                Navigator.pop(context);
+              },
               child: Container(
                 decoration: BoxDecoration(
                     shape: BoxShape.circle,
@@ -71,7 +64,7 @@ class WelcomeCustomHeaderWidget extends StatelessWidget {
                 child: Padding(
                   padding: const EdgeInsets.all(10.0),
                   child: Image.asset(
-                    'assets/images/add_pill.png',
+                    'assets/images/dont_add_pill.png',
                     height: 30,
                   ),
                 ),

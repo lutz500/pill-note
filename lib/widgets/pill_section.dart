@@ -1,13 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:medmate/storage/models/pill_data.dart';
 import 'package:medmate/widgets/pill_card.dart'; // Assuming PillCardWidget is imported
 import 'package:medmate/storage/models/pill.dart';
 
 class PillSectionWidget extends StatelessWidget {
   final List<Map<String, dynamic>> pillData;
   final Function(int) onPillDelete;
+  final Function(int) onTap;
 
   const PillSectionWidget(
-      {super.key, required this.pillData, required this.onPillDelete});
+      {super.key,
+      required this.pillData,
+      required this.onPillDelete,
+      required this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -21,13 +26,15 @@ class PillSectionWidget extends StatelessWidget {
             return Padding(
               padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 20),
               child: PillCardWidget(
-                id: Pill.fromMap(pillData[index]).id,
-                pillType: Pill.fromMap(pillData[index]).pill_type,
-                text: Pill.fromMap(pillData[index]).name,
-                interval: Pill.fromMap(pillData[index]).frequency,
-                time: Pill.fromMap(pillData[index]).time,
-                onPillDelete: onPillDelete,
-              ),
+                  id: PillData.fromMap(pillData[index]).id,
+                  pillType: PillData.fromMap(pillData[index]).pill_type,
+                  text: PillData.fromMap(pillData[index]).name,
+                  interval: PillData.fromMap(pillData[index]).frequency,
+                  time: PillData.fromMap(pillData[index]).time,
+                  pillState: PillData.fromMap(pillData[index]).action,
+                  log_time: PillData.fromMap(pillData[index]).logtime,
+                  onPillDelete: onPillDelete,
+                  onTap: onTap),
             );
           },
         ),
