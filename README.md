@@ -10,10 +10,10 @@ PillNote was a fun project that allowed me to dive back into mobile development 
 
 Here are some screenshots of the PillNote app in action:
 
-![Home Screen](![image](https://github.com/user-attachments/assets/ca958689-1857-4ec5-ad90-ef859e600dec))  
+![Home Screen](![image]([https://github.com/user-attachments/assets/ca958689-1857-4ec5-ad90-ef859e600dec)](https://github.com/lutz500/pill-note/blob/main/assets/screenshots/main_page.png))  
 *Home Screen: View your daily pill reminders and log them.*  
 *Screenshot taken on: January 6, 2025*
 
-![Add Pill Screen](![image](https://github.com/user-attachments/assets/31d3013e-4b44-46d9-a876-a99eab1a8c84))  
+![Add Pill Screen](![image]([https://github.com/user-attachments/assets/31d3013e-4b44-46d9-a876-a99eab1a8c84)](https://github.com/lutz500/pill-note/blob/main/assets/screenshots/add_pill_page.png))  
 *Add Pill Screen: Easily add new pills with dosage and reminder time.*  
 *Screenshot taken on: January 6, 2025*
